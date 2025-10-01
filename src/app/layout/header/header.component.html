@@ -1,0 +1,45 @@
+<header class="bg-white shadow-md p-4 flex justify-between items-center" dir="rtl">
+  <!-- Navigation Links -->
+  
+  <nav class="flex space-x-6 text-gray-700 font-medium">
+      <div class="px-2 text-xl font-bold ">حوكمة</div>
+    <a
+      *ngFor="let item of menuItems"
+      [routerLink]="item.path"
+      routerLinkActive="text-blue-600 border-b-2 border-blue-600"
+      class="hover:text-blue-500 transition-colors"
+    >
+      {{ item.label }}
+    </a>
+  </nav>
+
+  <!-- User Info -->
+  <div class="flex items-center space-x-4">
+    <span class="hidden md:block font-semibold">Alaa</span>
+   <div class="relative" (click)="toggleDropdown()">
+    <img
+      src="https://i.pravatar.cc/32"
+      class="w-8 h-8 rounded-full cursor-pointer"
+      alt="User"
+    />
+
+    <!-- Dropdown menu -->
+    <div
+      *ngIf="dropdownOpen"
+      class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-50"
+    >
+      <button
+        class="w-full text-left px-4 py-2 hover:bg-gray-100"
+        (click)="goToProfile()"
+      >
+الملف الشخصي       </button>
+      <button
+        class="w-full text-left px-4 py-2 hover:bg-gray-100"
+        (click)="logout()"
+      >
+        تسجيل الخروج
+      </button>
+    </div>
+  </div>
+  </div>
+</header>

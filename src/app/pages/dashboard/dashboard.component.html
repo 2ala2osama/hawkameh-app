@@ -1,0 +1,46 @@
+<div dir="rtl">
+  <h2 class="text-2xl font-bold mb-6">لوحة التحكم</h2>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-500 text-sm">إجمالي المستخدمين</h3>
+      <p class="text-2xl font-bold">1,245</p>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-500 text-sm">الطلبات النشطة</h3>
+      <p class="text-2xl font-bold">320</p>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-500 text-sm">الإيرادات</h3>
+      <p class="text-2xl font-bold">$8,450</p>
+    </div>
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-500 text-sm">المهام المعلقة</h3>
+      <p class="text-2xl font-bold">12</p>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Line Chart -->
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-700 font-semibold mb-4">الطلبات الشهرية</h3>
+      <canvas baseChart
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        chartType="line">
+      </canvas>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="bg-white shadow rounded-xl p-4">
+      <h3 class="text-gray-700 font-semibold mb-4">حالة الطلبات</h3>
+      <canvas baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        chartType="pie">
+      </canvas>
+    </div>
+  </div>
+</div>

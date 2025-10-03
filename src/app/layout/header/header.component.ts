@@ -1,24 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { KeycloakService } from '../../shared/services/keycloak.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   dropdownOpen = false;
   menuItems = [
     { label: 'الرئيسية', path: '/home' },
-    { label: 'الطلبات', path: '/orders' },
-    { label: 'التقارير', path: '/reports' },
-    { label: 'الإعدادات', path: '/settings' }
+    { label: 'الحوكمة', path: '/home/hawkameh' },
+    { label: 'الإعدادات الشركة ', path: '/home/company' },
+        { label: ' المستخدمين ', path: '/home/users' },
+
+    { label: 'المراحل الداخلية', path: '/reports' },
+    { label: ' الجمعية العامة', path: '/settings' },
+
+    { label: 'مجلس الادارة', path: '/settings' },
+    { label: ' اللجان', path: '/settings' },
+    { label: ' المخاطر', path: '/settings' },
   ];
-  constructor(private keycloak: KeycloakService, private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
@@ -31,6 +38,7 @@ export class HeaderComponent {
 
   logout() {
     this.dropdownOpen = false;
-    // this.keycloak.logout();
+    this.auth.logout();
+    this.router.navigate(['/']); // replace with your profile route
   }
 }

@@ -1,49 +1,80 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Chart, registerables } from 'chart.js';
+import { Chart, ChartData, ChartOptions, registerables } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import {  HttpClientModule } from '@angular/common/http';
 
 // Register Chart.js components
 Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule , BaseChartDirective], // 👈 Add RouterModule
+  imports: [CommonModule, RouterModule, BaseChartDirective , HttpClientModule], // 👈 Add RouterModule
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
 })
-
 export class DashboardComponent {
-   // Line chart data
-  public lineChartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+ company = {
+    name: 'Trading Company',
+    age: '10 years',
+    type: 'LLC'
+  };
+
+  board = {
+    members: 5,
+    start: '2025-01-01',
+    end: '2025-12-31'
+  };
+
+  investors = {
+    number: 20,
+    ratio: 50
+  };
+
+  capital = {
+    registered: '$1,000,000',
+    shares: 100000,
+    ratio: 100
+  };
+
+  // Pie Chart (Investors)
+  pieChartType: 'pie' = 'pie';
+  pieChartData: ChartData<'pie', number[], string> = {
+    labels: ['Investor A', 'Investor B', 'Investor C'],
     datasets: [
       {
-        data: [65, 59, 80, 81, 56],
-        label: 'Orders',
-        borderColor: '#3b82f6',
-        backgroundColor: 'rgba(59,130,246,0.2)',
+        data: [50, 30, 20],
+        backgroundColor: ['#13655bff', '#21d8c3ff', '#0e9787']
+      }
+    ]
+  };
+  pieChartOptions: ChartOptions<'pie'> = {
+    responsive: true,
+    plugins: { legend: { position: 'bottom' } }
+  };
+
+  // Line Chart (Time Series Example)
+  lineChartData: ChartData<'line'> = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Revenue',
+        data: [100, 120, 150, 130, 170, 200],
+        borderColor: '#0e9787',
+        backgroundColor: '#14a191ff',
         fill: true,
         tension: 0.4
       }
     ]
   };
-  public lineChartOptions = {
-    responsive: true
+  lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    plugins: { legend: { display: true } },
+    scales: { y: { beginAtZero: true } }
   };
 
-  // Pie chart data
-  public pieChartData = {
-    labels: ['Success', 'Failed', 'Pending'],
-    datasets: [
-      {
-        data: [300, 50, 100],
-        backgroundColor: ['#10b981', '#ef4444', '#f59e0b']
-      }
-    ]
-  };
-  public pieChartOptions = {
-    responsive: true
-  };
+  // Progress circle values (for Paid-up Capital)
+  capitalPercent: number = 75;
 }
+

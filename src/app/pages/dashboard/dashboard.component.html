@@ -1,46 +1,86 @@
-<div dir="rtl">
-  <h2 class="text-2xl font-bold mb-6">لوحة التحكم</h2>
+<div class="container mx-auto py-4 space-y-6">
 
-  <!-- Stats Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-500 text-sm">إجمالي المستخدمين</h3>
-      <p class="text-2xl font-bold">1,245</p>
+  <!-- الصف الأول: 3 بطاقات في 3 أعمدة -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+    <!-- بطاقة بيانات الشركة -->
+    <div class="bg-white shadow-sm rounded-lg p-4">
+      <h5 class="text-lg font-semibold mb-2">تفاصيل الشركة</h5>
+      <p>الاسم: {{ company.name }}</p>
+      <p>العمر: <span class="text-white rounded px-2" style="background-color: #13655BFF;">{{ company.age }}</span></p>
+      <p>النوع: {{ company.type }}</p>
     </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-500 text-sm">الطلبات النشطة</h3>
-      <p class="text-2xl font-bold">320</p>
-    </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-500 text-sm">الإيرادات</h3>
-      <p class="text-2xl font-bold">$8,450</p>
-    </div>
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-500 text-sm">المهام المعلقة</h3>
-      <p class="text-2xl font-bold">12</p>
+
+    <!-- بطاقة مجلس الإدارة -->
+<!-- بطاقة مجلس الإدارة -->
+<div class="bg-white shadow-sm rounded-lg p-4">
+  <h5 class="text-lg font-semibold mb-2">مجلس الإدارة</h5>
+  <p>
+    عدد أعضاء المجلس: 
+    <span class="text-white rounded px-2" style="background-color: #13655BFF;">
+      {{ board.members }}
+    </span>
+  </p>
+  <p>
+    تاريخ بدء الاجتماع: 
+    <span class="text-white rounded px-2" style="background-color: #13655BFF;">
+      {{ board.start }}
+    </span>
+  </p>
+  <p>
+    تاريخ انتهاء الاجتماع: 
+    <span class="text-white rounded px-2" style="background-color: #13655BFF;">
+      {{ board.end }}
+    </span>
+  </p>
+</div>
+
+
+    <!-- بطاقة رأس المال المدفوع -->
+    <div class="bg-white shadow-sm rounded-lg p-4 text-center">
+      <h5 class="text-lg font-semibold mb-2">رأس المال المدفوع</h5>
+      <p>رأس المال المسجل: {{ capital.registered }}</p>
+      <p>عدد الأسهم: {{ capital.shares }}</p>
+      <div class="w-24 h-24 mx-auto rounded-full border-4 border-primary-500 flex items-center justify-center text-lg font-bold"
+           [style.--percent]="capital.ratio">
+        {{ capital.ratio }}%
+      </div>
     </div>
   </div>
 
-  <!-- Charts -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Line Chart -->
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-700 font-semibold mb-4">الطلبات الشهرية</h3>
-      <canvas baseChart
-        [data]="lineChartData"
-        [options]="lineChartOptions"
-        chartType="line">
-      </canvas>
+  <!-- الصف الثاني: بطاقتان في عمودين -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <!-- بطاقة نسبة المستثمرين -->
+    <div class="bg-white shadow-sm rounded-lg p-4">
+      <h5 class="text-lg font-semibold mb-2">نسبة المستثمرين</h5>
+  <div class="chart-wrapper w-64 h-64 mx-auto"> <!-- حجم أصغر -->
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="pieChartType"
+                [options]="pieChartOptions">
+        </canvas>
+      </div>
     </div>
 
-    <!-- Pie Chart -->
-    <div class="bg-white shadow rounded-xl p-4">
-      <h3 class="text-gray-700 font-semibold mb-4">حالة الطلبات</h3>
-      <canvas baseChart
-        [data]="pieChartData"
-        [options]="pieChartOptions"
-        chartType="pie">
-      </canvas>
+    <!-- بطاقة الإيرادات مع الزمن -->
+    <div class="bg-white shadow-sm rounded-lg p-4">
+      <h5 class="text-lg font-semibold mb-2">سلسلة الإيرادات الزمنية</h5>
+      <div class="chart-wrapper">
+        <canvas baseChart
+                [data]="lineChartData"
+                [type]="'line'"
+                [options]="lineChartOptions">
+        </canvas>
+      </div>
     </div>
   </div>
+
+  <!-- الصف الثالث: بطاقة الاتصال كاملة العرض -->
+  <div class="bg-white shadow-sm rounded-lg p-4 text-center">
+    <h5 class="text-lg font-semibold mb-2">اتصل بنا</h5>
+    <p>البريد الإلكتروني: {{'info@example.com'}}</p>
+    <p>الهاتف 1: +1234567890</p>
+    <p>الهاتف 2: +0987654321</p>
+    <p>العنوان: 123 شارع الرئيسي، المدينة، الدولة</p>
+  </div>
+
 </div>

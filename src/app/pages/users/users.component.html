@@ -1,0 +1,54 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold">إدارة المستخدمين</h2>
+
+    <button
+      (click)="openDialog()"
+      class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition"
+    >
+      + إضافة مستخدم
+    </button>
+  </div>
+  <app-datatable
+    [columns]="columns"
+    [data]="paginatedData"
+    (edit)="openDialog($event)"
+    (delete)="deleteUser($event)"
+  >
+  </app-datatable>
+
+  <div
+    *ngIf="totalPages > 1"
+    class="flex justify-center items-center gap-2 mt-4"
+  >
+    <button
+      (click)="changePage(currentPage - 1)"
+      [disabled]="currentPage === 1"
+      class="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      السابق
+    </button>
+
+    <span class="text-sm text-gray-600">
+      صفحة {{ currentPage }} من {{ totalPages }}
+    </span>
+
+    <button
+      (click)="changePage(currentPage + 1)"
+      [disabled]="currentPage === totalPages"
+      class="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+    >
+      التالي
+    </button>
+  </div>
+
+  <!-- Dialog Form -->
+  <app-users-add-edit
+    *ngIf="showDialog"
+    [users]="selectedUser"
+    [editing]="editing"
+    (save)="saveUser($event)"
+    (close)="closeDialog()"
+  >
+  </app-users-add-edit>
+</div>

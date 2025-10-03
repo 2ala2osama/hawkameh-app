@@ -1,0 +1,24 @@
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div class="bg-white rounded-lg shadow-lg w-96 p-6 relative">
+    <!-- زر إغلاق -->
+    <button (click)="onClose()"
+            class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+
+    <h3 class="text-lg font-semibold mb-4">
+      {{ editing ? 'تعديل الشركة' : 'إضافة شركة' }}
+    </h3>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+      <input type="text" placeholder="اسم الشركة" formControlName="name"
+             class="px-3 py-2 border rounded-lg w-full" required />
+
+      <input type="text" placeholder="بريد الإلكتروني" formControlName="email"
+             class="px-3 py-2 border rounded-lg w-full" required />
+
+      <button type="submit"
+              class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+        {{ editing ? 'تحديث' : 'إضافة' }}
+      </button>
+    </form>
+  </div>
+</div>

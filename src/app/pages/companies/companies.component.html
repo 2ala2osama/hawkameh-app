@@ -1,0 +1,25 @@
+<div class="p-6  min-h-screen">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold">إدارة الشركات</h2>
+
+    <button (click)="openDialog()"
+            class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition">
+      + إضافة شركة
+    </button>
+  </div>
+  <app-datatable
+     [columns]="columns"
+    [data]="companies"
+    (edit)="openDialog($event)"
+    (delete)="deleteCompany($event)">
+  </app-datatable>
+
+  <!-- Dialog -->
+  <app-company-add-edit *ngIf="showDialog"
+  
+                        [company]="selectedCompany"
+                        [editing]="editing"
+                        (save)="saveCompany($event)"
+                        (close)="closeDialog()">
+  </app-company-add-edit>
+</div>

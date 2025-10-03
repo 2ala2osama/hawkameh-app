@@ -1,0 +1,12 @@
+/* Full page gradient background */
+
+@import './../../../../assests/styeles/app.scss';
+.login-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, $primary, $secoundry);
+  /* you can tweak angles and colors */
+}
+

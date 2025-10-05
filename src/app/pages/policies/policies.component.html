@@ -1,0 +1,28 @@
+<div class="flex justify-end">
+  <app-file-upload (fileSelected)="addFile($event)" (visible)="false"></app-file-upload>
+</div>
+
+<div class="bg-white rounded-xl shadow p-6 space-y-6">
+  <h2 class="text-xl font-semibold mb-4">عرض الوثائق الحالية</h2>
+
+  <!-- قائمة الملفات -->
+  <div *ngFor="let file of files" class="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition">
+    <!-- أيقونة + اسم الملف -->
+    <div class="flex items-center gap-3">
+      <span *ngIf="file.type.startsWith('image/')" class="text-2xl">🖼️</span>
+      <span *ngIf="!file.type.startsWith('image/')" class="text-2xl">📄</span>
+      <span class="font-medium text-gray-800 truncate">{{ file.name }}</span>
+    </div>
+
+    <!-- أزرار الإجراءات -->
+    <div class="flex gap-2">
+      <a
+        [href]="file.url"
+        target="_blank"
+        class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition"
+      >
+        ⬇️ تحميل
+      </a>
+    </div>
+  </div>
+</div>

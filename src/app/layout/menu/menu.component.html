@@ -1,26 +1,24 @@
 <div
-  class=" bg-white shadow-md flex flex-col transition-all duration-300"
+  class="bg-white shadow-md flex flex-col h-screen transition-all duration-300"
   [class.w-16]="isSidebarClosed"
+  [class.w-64]="!isSidebarClosed"
   dir="rtl"
 >
-  <div class="p-4 text-xl font-bold border-b">حوكمة</div>
+  <!-- Logo / Title -->
+  <div class=" border-b flex items-center justify-center">    <img src="/images/logo1.jpg" alt="Logo" width="79" height="80"   />
+</div>
 
-  <nav class="flex space-x-6 text-gray-700 font-medium">
-    <a
-      *ngFor="let item of menuItems"
-      [routerLink]="item.path"
-      routerLinkActive="text-blue-600 border-b-2 border-blue-600"
-      class="hover:text-blue-500 transition-colors"
-    >
-      {{ item.label }}
-    </a>
-  </nav>
-
-
-  <button
-    class="p-2 bg-gray-100 hover:bg-gray-200"
-    (click)="toggleSidebar()"
+  <!-- Nav -->
+<nav class="flex flex-col space-y-2 font-medium p-4">
+  <a
+    *ngFor="let item of menuItems"
+    [routerLink]="item.path"
+    routerLinkActive="bg-primary text-white rounded-md"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="px-3 py-2 rounded-md hover:bg-primary/10 hover:text-primary transition-colors"
   >
-    <span class="material-icons">menu</span>
-  </button>
+    {{ item.label }}
+  </a>
+</nav>
+
 </div>

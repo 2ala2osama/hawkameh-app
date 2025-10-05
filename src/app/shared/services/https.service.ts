@@ -20,6 +20,24 @@ export class HttpsService {
     this.setupTokenListener();
   }
 
+    sendPostRequestAuth<T>(
+    endpoint: string,
+    body?: any,
+    useXsrf: boolean = false
+  ): Observable<T> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // Optional: Add XSRF token header from cookies (if needed)
+    // const xsrfToken = this.cookieService.getItem('XSRF-TOKEN');
+    // if (useXsrf && xsrfToken) headers = headers.set('X-XSRF-TOKEN', xsrfToken);
+
+    return this.http.post<T>(
+      `${this.backendServiceURL}${endpoint}`,
+      body ?? null,
+      { headers, withCredentials: true }
+    );
+  }
+
   private setupTokenListener() {
     const token = localStorage.getItem('token');
     console.log(token);

@@ -1,27 +1,69 @@
 <div class="overflow-x-auto bg-gray-50 p-4 rounded-lg shadow">
   <table class="min-w-full border-collapse border border-gray-200 rounded-lg">
-    <thead class="bg-gray-300 text-black">
+    <thead class="bg-gray-200 text-black">
       <tr>
-        <th *ngFor="let col of columns" class="px-4 py-2 text-center font-medium">
+        <th
+          *ngFor="let col of columns"
+          class="px-4 py-2 text-center font-medium"
+        >
           {{ col.label }}
         </th>
         <th class="px-4 py-2 text-center font-medium">الإجراءات</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of paginatedData; let i = index"
-          class="text-center border-t border-gray-200 hover:bg-gray-100 transition cursor-pointer">
+      <tr
+        *ngFor="let row of paginatedData; let i = index"
+        class="text-center border-t border-gray-200 hover:bg-gray-100 transition cursor-pointer"
+      >
         <td *ngFor="let col of columns" class="px-4 py-2">
           {{ row[col.field] }}
         </td>
         <td class="px-4 py-2 flex justify-center gap-2">
-          <button (click)="edit.emit(row)"
-                  class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
-            تعديل
+          <!-- زر التعديل -->
+          <button
+            (click)="edit.emit(row)"
+            class="flex items-center justify-center w-8 h-8 bg-primary text-white rounded hover:bg-primary transition"
+            title="تعديل"
+          >
+            <!-- أيقونة قلم -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 4h2m1 1v16m-4-16v16m7-10l-4-4m0 0l-4 4m4-4v16"
+              />
+            </svg>
           </button>
-          <button (click)="delete.emit(row)"
-                  class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
-            حذف
+
+          <!-- زر الحذف -->
+          <button
+            (click)="delete.emit(row)"
+            class="flex items-center justify-center w-8 h-8 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            title="حذف"
+          >
+            <!-- أيقونة سلة مهملات -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </td>
       </tr>
@@ -32,6 +74,4 @@
       </tr>
     </tbody>
   </table>
-
-  
 </div>

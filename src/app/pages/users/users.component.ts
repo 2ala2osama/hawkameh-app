@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DatatableComponent } from '../../shared/component/datatable/datatable.component';
 import { UsersAddEditComponent } from './users-add-edit/users-add-edit.component';
+import { PaginationComponent } from '../../shared/component/pagination/pagination.component';
 
 interface User {
   id?: number;
@@ -14,7 +15,12 @@ interface User {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, DatatableComponent, UsersAddEditComponent],
+  imports: [
+    CommonModule,
+    DatatableComponent,
+    UsersAddEditComponent,
+    PaginationComponent,
+  ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
@@ -47,24 +53,24 @@ export class UsersComponent implements OnInit {
       company: `شركة ${Math.ceil(Math.random() * 5)}`,
     }));
 
-    this.totalPages = Math.ceil(this.users.length / this.pageSize);
-    this.updatePaginatedData();
+     this.updatePaginatedData();
   }
 
-  updatePaginatedData() {
-    const start = (this.currentPage - 1) * this.pageSize;
-    const end = start + this.pageSize;
-    this.paginatedData = this.users.slice(start, end);
-  }
+updatePaginatedData() {
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+  const endIndex = startIndex + this.pageSize;
+  this.paginatedData = [...this.users.slice(startIndex, endIndex)];
+}
 
-  changePage(page: number) {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-    this.updatePaginatedData();
-  }
+onPageChange(page: number) {
+  this.currentPage = page ;
+  this.updatePaginatedData();
+}
 
   openDialog(user?: User) {
-    this.selectedUser = user ? { ...user } : { name: '', email: '', role: '', company: '' };
+    this.selectedUser = user
+      ? { ...user }
+      : { name: '', email: '', role: '', company: '' };
     this.editing = !!user;
     this.showDialog = true;
   }
@@ -75,20 +81,21 @@ export class UsersComponent implements OnInit {
 
   saveUser(user: User) {
     if (this.editing && this.selectedUser) {
-      const index = this.users.findIndex(u => u.id === this.selectedUser?.id);
+      const index = this.users.findIndex((u) => u.id === this.selectedUser?.id);
       if (index > -1) this.users[index] = { ...user, id: this.selectedUser.id };
     } else {
-      const newId = this.users.length ? Math.max(...this.users.map(u => u.id!)) + 1 : 1;
+      const newId = this.users.length
+        ? Math.max(...this.users.map((u) => u.id!)) + 1
+        : 1;
       this.users.push({ ...user, id: newId });
     }
 
     this.totalPages = Math.ceil(this.users.length / this.pageSize);
-    this.changePage(this.currentPage); // refresh current page
     this.closeDialog();
   }
 
   deleteUser(user: User) {
-    this.users = this.users.filter(u => u.id !== user.id);
+    this.users = this.users.filter((u) => u.id !== user.id);
     this.totalPages = Math.ceil(this.users.length / this.pageSize);
     if (this.currentPage > this.totalPages) this.currentPage = this.totalPages;
     this.updatePaginatedData();

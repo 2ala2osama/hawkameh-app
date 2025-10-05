@@ -9,10 +9,19 @@
   </div>
   <app-datatable
      [columns]="columns"
-    [data]="companies"
+    [data]="paginatedData"
     (edit)="openDialog($event)"
     (delete)="deleteCompany($event)">
   </app-datatable>
+
+
+  <!-- Pagination -->
+  <app-pagination
+    [totalItems]="companies.length"
+    [pageSize]="pageSize"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 
   <!-- Dialog -->
   <app-company-add-edit *ngIf="showDialog"

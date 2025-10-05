@@ -45,7 +45,7 @@ export class DashboardComponent {
     datasets: [
       {
         data: [50, 30, 20],
-        backgroundColor: ['#13655bff', '#21d8c3ff', '#0e9787']
+        backgroundColor: ['#bc8835', '#003c73', '#003c73']
       }
     ]
   };
@@ -61,8 +61,8 @@ export class DashboardComponent {
       {
         label: 'Revenue',
         data: [100, 120, 150, 130, 170, 200],
-        borderColor: '#0e9787',
-        backgroundColor: '#14a191ff',
+        borderColor: '#003c73',
+        backgroundColor: '#bc8835',
         fill: true,
         tension: 0.4
       }

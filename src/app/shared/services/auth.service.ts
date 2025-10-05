@@ -2,25 +2,37 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../enviroments/enviroment';
 import { HttpsService } from './https.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 import { signIn } from '../models/signin.model';
 import { Router } from '@angular/router';
+import { CookieStorageService } from './cookies.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   baseUrl = environment.baseUrl;
+  constructor(private https: HttpsService, private router: Router, private cookiesService: CookieStorageService) { }
 
-  constructor(private https: HttpsService, private router: Router) {}
+  login(username: string, password: string) {
+    const body = { username: username, password: password };
 
-  login(body: signIn): Observable<string> {
-    return this.https.sendPostRequest(
-      `${this.baseUrl}/getToken`,
-      body,
-      true,
-      'text' // ✅ specify text response
-    );
+    this.https
+      .sendPostRequestAuth<{
+        access_token: string;
+        refresh_token?: string;
+        token_type: string;
+        expires_at: string;
+      }>(`${this.baseUrl}login`, body)
+      .subscribe({
+        next: (res) => {
+          this.cookiesService.setItem('access-token', res.access_token);
+          this.router.navigateByUrl('/dashboard')
+        },
+        error: (err) => {
+          console.error('Login failed', err);
+        },
+      });
   }
 
   getRole(): any {
@@ -39,9 +51,6 @@ export class AuthService {
     return 'investor';
   }
 
-  setToken(token: any) {
-    localStorage.setItem('token', JSON.stringify(token));
-  }
 
   // Retrieve token and parse JSON
   getToken(): any {
@@ -50,11 +59,18 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.https
+      .sendPostRequestAuth(`${this.baseUrl}logout`, null, true)
+      .subscribe({
+        next: () => {
+          this.cookiesService.removeItem('access-token');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => console.error('Logout failed:', err)
+      });
   }
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
+
+
+
 }

@@ -14,33 +14,15 @@
     [data]="paginatedData"
     (edit)="openDialog($event)"
     (delete)="deleteUser($event)"
-  >
-  </app-datatable>
+  ></app-datatable>
 
-  <div
-    *ngIf="totalPages > 1"
-    class="flex justify-center items-center gap-2 mt-4"
-  >
-    <button
-      (click)="changePage(currentPage - 1)"
-      [disabled]="currentPage === 1"
-      class="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-    >
-      السابق
-    </button>
-
-    <span class="text-sm text-gray-600">
-      صفحة {{ currentPage }} من {{ totalPages }}
-    </span>
-
-    <button
-      (click)="changePage(currentPage + 1)"
-      [disabled]="currentPage === totalPages"
-      class="px-3 py-1 rounded border bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
-    >
-      التالي
-    </button>
-  </div>
+  <!-- Pagination -->
+  <app-pagination
+    [totalItems]="users.length"
+    [pageSize]="pageSize"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 
   <!-- Dialog Form -->
   <app-users-add-edit

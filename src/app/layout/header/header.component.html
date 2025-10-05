@@ -2,26 +2,9 @@
   class="bg-white shadow-md p-4 flex justify-between items-center"
   dir="rtl"
 >
-  <div>
-    <img src="/images/logo.png" alt="Logo" class="h-14 w-12" />
-  </div>
-
-  <div class="flex gap-6">
-    <ng-container *ngFor="let item of menuItems">
-      <a
-        [routerLink]="item.path"
-        routerLinkActive="text-primary border-b-2 border-primary"
-        class="hover:text-primary transition-colors"
-      >
-        {{ item.label }}
-      </a>
-    </ng-container>
-  </div>
-
-  <!-- </nav> -->
-
+<div></div>
   <!-- User Info -->
-  <div class="flex items-center space-x-4">
+  <div class="flex items-center justify-end space-x-4 space-x">
     <span class="hidden md:block font-semibold">Alaa</span>
     <div class="relative" (click)="toggleDropdown()">
       <img
@@ -33,16 +16,16 @@
       <!-- Dropdown menu -->
       <div
         *ngIf="dropdownOpen"
-        class="absolute left-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-50"
+        class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md overflow-hidden z-50 profile"
       >
         <button
-          class="w-full text-left px-4 py-2 hover:bg-gray-100"
+          class="w-full text-right px-4 py-2 hover:bg-gray-100"
           (click)="goToProfile()"
         >
           الملف الشخصي
         </button>
         <button
-          class="w-full text-left px-4 py-2 hover:bg-gray-100"
+          class="w-full text-right px-4 py-2 hover:bg-gray-100"
           (click)="logout()"
         >
           تسجيل الخروج

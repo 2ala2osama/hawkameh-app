@@ -24,17 +24,17 @@ export class LoginPageComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.auth.login(this.loginForm.value).subscribe({
-        next: (res) => {
-          this.auth.setToken(res);
-          this.router.navigate(['/home/home']);
-        },
-        error: (err) => console.error('Error fetching token', err),
-      });
-
-      console.log(this.loginForm.value); // 🔥 Hook into your AuthService here
+      const { username, password } = this.loginForm.value;
+      this.auth.login(username, password); // ✅ just call it
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
+
+  showPassword = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
 }

@@ -2,62 +2,86 @@
   dir="rtl"
   class="flex min-h-screen items-center justify-center bg-gray-100 login-bg"
 >
-  <div class="w-full  max-w-md bg-white rounded-2xl shadow-lg p-8">
-    <div class="text-center flex items-center justify-center">
-      <img src="/images/logo.png" alt="Logo" width="100" height="100"  />
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+    <div class="text-center flex items-center justify-center mb-4">
+      <img src="/images/logo1.jpg" alt="Logo" width="100" height="100" />
     </div>
-    <!-- <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
-        تسجيل الدخول - حوكمة
-    </h2> -->
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
       <!-- Email -->
       <div>
-        <label class="block text-sm font-medium text-gray-700"
-          >البريد الإلكتروني</label
-        >
+        <label class="block text-sm font-medium text-gray-700">البريد الإلكتروني</label>
         <input
           type="email"
           formControlName="username"
           class="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-right"
           placeholder="أدخل بريدك الإلكتروني"
         />
-        <!-- <div
-          *ngIf="
-            loginForm.get('username')?.touched && loginForm.get('username')?.invalid
-          "
-          class="text-sm text-red-500 mt-1"
-        >
-          يرجى إدخال بريد إلكتروني صالح.
-        </div> -->
       </div>
 
       <!-- Password -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700"
-          >كلمة المرور</label
-        >
-        <input
-          type="password"
-          formControlName="password"
-          class="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-right"
-          placeholder="أدخل كلمة المرور"
-        />
-        <!-- <div
-          *ngIf="
-            loginForm.get('password')?.touched &&
-            loginForm.get('password')?.invalid
-          "
-          class="text-sm text-red-500 mt-1"
-        >
-          يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.
-        </div> -->
+      <div class="relative">
+        <label class="block text-sm font-medium text-gray-700">كلمة المرور</label>
+        <div class="relative">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="mt-1 block w-full px-2 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-right pr-4"
+            placeholder="أدخل كلمة المرور"
+          />
+
+          <!-- Eye Icon -->
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute inset-y-0 left-0 flex items-center px-3 text-gray-500 hover:text-gray-700"
+            tabindex="-1"
+          >
+            <!-- 👁 Show Icon -->
+            <svg
+              *ngIf="!showPassword"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.637 0 8.573 3.007 9.963 7.178.07.203.07.42 0 .622C20.573 16.49 16.637 19.5 12 19.5c-4.64 0-8.577-3.007-9.964-7.178z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
+
+            <!-- 👁‍🗨 Hide Icon -->
+            <svg
+              *ngIf="showPassword"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c1.53 0 2.984-.294 4.312-.829M6.228 6.228l11.544 11.544M9.88 9.88A3 3 0 0114.12 14.12"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Submit -->
       <button
         type="submit"
-        (click)="onSubmit()"
         class="w-full bg-primary text-white py-2 rounded-lg hover:bg-primary/90 transition"
       >
         دخول
@@ -66,9 +90,9 @@
 
     <p class="mt-6 text-center text-sm text-gray-600">
       ليس لديك حساب؟
-      <a routerLink="/register" class="text-primary hover:underline"
-        >إنشاء حساب</a
-      >
+      <a routerLink="/register" class="text-primary hover:underline">
+        إنشاء حساب
+      </a>
     </p>
   </div>
 </div>

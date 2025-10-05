@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   templateUrl: './company-add-edit.component.html',
 })
 export class CompanyAddEditComponent {
-  @Input() company: any = { name: '', city: '' };
+  @Input() company: any = { name: '', city: '' , address:''};
   @Input() editing = false;
   @Output() save = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();
@@ -21,6 +21,8 @@ export class CompanyAddEditComponent {
     this.form = this.fb.group({
       name: [this.company?.name || '', Validators.required],
       email: [this.company?.city || '', Validators.required],
+            address: [this.company?.address || '', Validators.required],
+
     });
   }
 

@@ -12,12 +12,18 @@ export class SidebarComponent {
   isSidebarClosed = false;
 
   menuItems = [
-    { label: 'الرئيسية', path: '/home' },
-    { label: 'الطلبات', path: '/orders' },
-    { label: 'التقارير', path: '/reports' },
-    { label: 'الإعدادات', path: '/settings' }
-  ];
+    { label: 'الرئيسية', path: '/dashboard' },
+    { label: ' المستخدمين ', path: '/users' },
+    { label: 'الإعدادات الشركة ', path: '/company' },
+    { label: 'الحوكمة', path: '/hawkameh' },
+    { label: ' الجمعية العامة', path: '/meetings' },
+    { label: 'مجلس الادارة', path: '/boarder-of-diretors' },
+    { label: ' اللجان', path: '/aljan' },
+    { label: 'المراجعة الداخلية', path: '/internal-stages' },
+    { label: ' المخاطر', path: '/risks' },
+    // { label: ' استشارات', path: '/settings' },
 
+  ];
   toggleSidebar() {
     this.isSidebarClosed = !this.isSidebarClosed;
   }

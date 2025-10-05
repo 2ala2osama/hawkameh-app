@@ -13,10 +13,10 @@ import { AuthService } from '../../shared/services/auth.service';
 export class HeaderComponent {
   dropdownOpen = false;
   menuItems = [
-    { label: 'الرئيسية', path: '/home' },
-    { label: 'الحوكمة', path: '/home/hawkameh' },
-    { label: 'الإعدادات الشركة ', path: '/home/company' },
-        { label: ' المستخدمين ', path: '/home/users' },
+    { label: 'الرئيسية', path: '/dashboard' },
+    { label: 'الحوكمة', path: '/hawkameh' },
+    { label: 'الإعدادات الشركة ', path: '/company' },
+        { label: ' المستخدمين ', path: '/users' },
 
     { label: 'المراحل الداخلية', path: '/reports' },
     { label: ' الجمعية العامة', path: '/settings' },
